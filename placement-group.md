@@ -4,9 +4,7 @@ PG（放置组） — Placement Group，当数据到存储集群时，对象首�
 
 ![](/assets/pg_1.png)
 
-## 作用
-
-基本特点：
+## 基本特点
 
 * PG 确定了 pool 中的对象和 OSD 之间的映射关系。一个 object 只会存在于一个 PG 中，但是多个 object 可以在同一个 PG 内。
 * Pool 的 PG 数目是创建 pool 时候指定的，Ceph 官方有推荐的计算方法。其值与 OSD 的总数的关系密切。当Ceph 集群扩展 OSD 增多时，根据需要，可以增加 pool 的 PG 数目。
@@ -23,4 +21,12 @@ PG（放置组） — Placement Group，当数据到存储集群时，对象首�
   * 客户端根据 Cluster map 以及 CRUSH Ruleset 使用 CRUSH 算法查找出某个 PG 所在的 OSD 列表（其实是 up set）。
 
 PG-Object-OSD的关系如下图所示：
+
+![](/assets/pg_2.png)
+
+## 状态变化
+
+
+
+
 
