@@ -7,7 +7,7 @@ Ceph 架构中客户端的读写操作均是以OSD上的RADOS对象存储中的�
    2. ceph对object ID做哈希；
    3. ceph 对该 hash 值取 PG 总数的模，得到 PG 编号 （比如 58）（第2和第3步基本保证了一个 pool 中的所有 PG 将会被均匀地使用）;
    4. ceph 将  pool ID 和 PG ID 组合在一起（比如 4.58）得到 PG 的完整ID； 也就是：PG-id = pool-id.\(hash\(objet-id\) % PG-number\)
-3. 
+3. 客户端通过 CRUSH 算法计算出（或者说查找出） object 应该会被保存到 PG 中哪个 OSD 上。（注意：这里是说”应该“，而不是”将会“，这是因为 PG 和 OSD 之间的关系是已经确定了的，那客户端需要做的就是需要知道它所选中的这个 PG 到底将会在哪些 OSD 上创建对象。）。这步骤也叫做 CRUSH 查找。
 
 
 
