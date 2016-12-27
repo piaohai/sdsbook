@@ -42,29 +42,24 @@ PG-Object-OSD的关系如下图所示：
 
 ## 状态说明
 
-|  |  |
+| 状态 | 说明 |
 | :--- | :--- |
-| a a | b b |
-
-状态    说明  
-Creating    Ceph 仍在创建归置组  
-Active    Ceph 可处理到归置组的请求  
-Clean    Ceph 把归置组内的对象复制了规定次数  
-Down    包含必备数据的副本挂了，所以归置组离线  
-Replay    某 OSD 崩溃后，归置组在等待客户端重放操作  
-Splitting    Ceph 正在把一归置组分割为多个  
-Scrubbing    Ceph 正在检查归置组的一致性  
-Degraded    归置组内的对象还没复制到规定次数  
-Inconsistent    Ceph 检测到了归置组内一或多个副本间不一致（如各对象大小不一、恢复后对象还没复制到副本那里、等等）  
-Peering    归置组正在互联  
-Repair    Ceph 正在检查归置组、并试图修复发现的不一致（如果可能的话）  
-Recovering    Ceph 正在迁移/同步对象及其副本  
-Backfill    Ceph 正在扫描并同步整个归置组的内容，而不是根据日志推算哪些最新操作需要同步。 Backfill 是恢复的一种特殊情况  
-Wait-backfill    归置组正在排队，等候回填  
-Backfill-toofull    一回填操作在等待，因为目标 OSD 使用率超过了占满率  
-Incomplete    Ceph 探测到某一归置组可能丢失了写入信息，或者没有健康的副本。如果你看到了这个状态，试着启动一下有可能包含所需信息的失败 OSD 、或者临时调整一下 min\_size 以完成恢复  
-Stale    归置组处于一种未知状态——从归置组运行图变更起就没再收到它的更新  
-Remapped    归置组被临时映射到了另外一组 OSD ，它们不是 CRUSH 算法指定的  
-Undersized    此归置组的副本数小于配置的存储池副本水平  
-Peered    此归置组已互联，但是不能向客户端提供服务，因为其副本数没达到本存储池的配置值（ min\_size 参数）。在此状态下可以进行恢复，所以此归置组最终能达到 min\_size
-
+| Creating | Ceph 仍在创建归置组 |
+| Active | Ceph 可处理到归置组的请求 |
+| Clean | Ceph 把归置组内的对象复制了规定次数 |
+| Down | 包含必备数据的副本挂了，所以归置组离线 | 
+| Replay | 某 OSD 崩溃后，归置组在等待客户端重放操作 |
+| Splitting | Ceph 正在把一归置组分割为多个 |
+| Scrubbing | Ceph 正在检查归置组的一致性 |
+| Degraded | 归置组内的对象还没复制到规定次数 |
+| Inconsistent | Ceph 检测到了归置组内一或多个副本间不一致（如各对象大小不一、恢复后对象还没复制到副本那里、等等） |
+| Peering | 归置组正在互联 |
+| Repair | Ceph 正在检查归置组、并试图修复发现的不一致（如果可能的话） |
+| Recovering | Ceph 正在迁移/同步对象及其副本 |
+| Backfill | Ceph 正在扫描并同步整个归置组的内容，而不是根据日志推算哪些最新操作需要同步。 Backfill 是恢复的一种特殊情况 |
+| Wait-backfill | 一回填操作在等待，因为目标 OSD 使用率超过了占满率 |
+| Backfill-toofull | Ceph 探测到某一归置组可能丢失了写入信息，或者没有健康的副本。如果你看到了这个状态，试着启动一下有可能包含所需信息的失败 OSD 、或者临时调整一下 min\_size 以完成恢复 |
+| Incomplete | 归置组处于一种未知状态——从归置组运行图变更起就没再收到它的更新 |
+| Remapped | 归置组被临时映射到了另外一组 OSD ，它们不是 CRUSH 算法指定的 |
+| Undersized | 此归置组的副本数小于配置的存储池副本水平 |
+| Peered | 此归置组已互联，但是不能向客户端提供服务，因为其副本数没达到本存储池的配置值（ min\_size 参数）。在此状态下可以进行恢复，所以此归置组最终能达到 min\_size |
