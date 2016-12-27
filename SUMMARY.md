@@ -33,7 +33,8 @@
       * [MDS](mds.md)
     * [核心概念](核心概念.md)
       * [Placement Group](placement-group.md)
-    * * [Pool](pool.md)
+
+    * [Pool](pool.md)
 
 
 
