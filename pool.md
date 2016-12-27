@@ -14,24 +14,21 @@ Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策
   * 存储池分级：多个存储池可以组成分级存储，通过数据热度统计，自动将热度较高的数据存储于快速存储池中，而将热度较低的数据存储于慢速存储池中，分级存储配置项包括：
     * hit\_set\_type
     * hit\__set_\_period
-    * 1. hit\_set\_type
-
-
-
-    * /hit\_set\_count
-    * /hit\_set\_fpp
-    * /use\_gmt\_hitset
-    * /target\_max\_bytes
-    * /target\_max\_objects
-    * /cache\_target\_ration
-    * /cache\_target\_dirty\_high\_ration
-    * /cache\_target\_full\_ratio
-    * /cache\_min\_flush\_age
-    * /cache\_min\_evict\_age
-    * /min\_read\_recency\_for\_promote
-    * /min\_write\_recency\_for\_promote
-    * /hit\_set\_grade\_decay\_rate
-    * /hit\_set\_search\_last\_n
+    * hit\_set\_type
+    * hit\_set\_count
+    * hit\_set\_fpp
+    * use\_gmt\_hitset
+    * target\_max\_bytes
+    * target\_max\_objects
+    * cache\_target\_ration
+    * cache\_target\_dirty\_high\_ration
+    * cache\_target\_full\_ratio
+    * cache\_min\_flush\_age
+    * cache\_min\_evict\_age
+    * min\_read\_recency\_for\_promote
+    * min\_write\_recency\_for\_promote
+    * hit\_set\_grade\_decay\_rate
+    * hit\_set\_search\_last\_n
 
 * * 副本数目 —— size：拷贝数描述了一个存储池冗余策略，表示Pool中采用几份拷贝对数据进行存储（注意：这里主副本也算作一份拷贝）
   * 副本最小数目—— min\__size：当至少有min\_size数量的拷贝时，数据才可以被读写_
