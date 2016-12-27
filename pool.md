@@ -17,28 +17,6 @@ Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策
     * 缓存调优：
       * 客户可以根据具体业务场景，设置“bloom“，“explicithash”，“explicitobject”，加快热度计算速度或者加强热度计算精度 —— bloom模式具有较快的计算速度，explicit\_object具有较好的计算精度，而explicit\_hash介于两者之间。
       * 客户可以根据具体场景，通过设置min\_read\_recency\_for\_promote与min\_write\_recency\_for\_promote，提升缓存命中效率。这两个参数表示读写访问在缓存池至少未命中几次后，才会被缓存入快速存储池，在对象未被缓存入快速存储池之前，读写请求将直接通过Proxy write/read 从慢速存储池中获取数据，这可以极大程度上避免全局数据扫描从而污染缓存池数据。
-    * 提供对象热度策略设置参数，进行热度统计与缓存策略的优化
-    * 根据不同的业务场景，提供不同的缓存策略，如
-  * * 
-  * * hit\_set\_type：hitset的类型，通常使用bloom
-    * hit\__set_\_period：每个hitset
-
-
-
-    * hit\_set\_count
-    * hit\_set\_fpp
-    * use\_gmt\_hitset
-    * target\_max\_bytes
-    * target\_max\_objects
-    * cache\_target\_ration
-    * cache\_target\_dirty\_high\_ration
-    * cache\_target\_full\_ratio
-    * cache\_min\_flush\_age
-    * cache\_min\_evict\_age
-    * min\_read\_recency\_for\_promote
-    * min\_write\_recency\_for\_promote
-    * hit\_set\_grade\_decay\_rate
-    * hit\_set\_search\_last\_n
 * * 副本数目 —— size：拷贝数描述了一个存储池冗余策略，表示Pool中采用几份拷贝对数据进行存储（注意：这里主副本也算作一份拷贝）
   * 副本最小数目—— min\__size：当至少有min\_size数量的拷贝时，数据才可以被读写_
 
