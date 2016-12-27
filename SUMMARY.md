@@ -34,5 +34,6 @@
         * [核心概念](核心概念.md)
             * [Placement Group](placement-group.md)
             * [Pool](pool.md)
-            * CRUSH
+            * [CRUSH](crush.md)
+            * [Cluster Map](cluster-map.md)
 
