@@ -26,7 +26,14 @@ PG-Object-OSD的关系如下图所示：
 
 ## 状态变化
 
-
-
-
-
+* PG 的状态也是不断变化的，其主要状态包括：
+  * Creating 创建中：PG 正在被创建。
+  * Peering 互联中：表示一个过程，该过程中一个 PG 所在的所有 OSD 都需要互相通信来就 PG 的对象及其元数据的状态达成一致。处于该状态的PG不能响应IO请求。Peering的过程其实就是pg状态从初始状态然后到active+clean的变化过程。
+  * Active 活动的：Peering 过程完成后，PG 的状态就是 active 的。此状态下，在主次OSD 上的PG 数据都是可用的。
+  * Clean 洁净的：此状态下，主次 OSD 该 PG 中的对象，每没有异常，降级，或者需要重映射，所有副本都是就绪了。
+  * Down：PG 所在的 OSD 掉线了，因为存放其某些关键数据（比如 pglog 和 pginfo，它们也是保存在OSD上）的 OSD down 了。
+  * Degraded 降级的：某个 OSD 被发现停止服务 （down）了后，Ceph MON 将该 OSD 上的所有 PG 的状态设置为 degraded，此时该 OSD 的 peer OSD 会继续提供数据服务。这时会有两种结果：一是它会重新起来（比如重启机器时），需要再经过 peering 状态后，Ceph 会发起 recovery （恢复）过程，使该 OSD 上过期的数据被恢复到最新状态，最后到 clean 状态；二是 OSD 的 down 状态持续 300 秒后其状态被设置为 out，Ceph 会选择其它的 OSD 加入 acting set，并启动回填（backfilling）数据到新 OSD 的过程，使 PG 副本数恢复到规定的数目。
+  * Recovering 恢复中：一个 OSD down 后，其上面的 PG 的内容的版本会比其它OSD上的 PG 副本的版本落后。在它重启之后（比如重启机器时），Ceph 会启动 recovery 过程来使其数据得到更新。
+  * Backfilling 回填中：一个新 OSD 加入集群后，Ceph 会尝试级将部分其它 OSD 上的 PG 挪到该新 OSD 上，此过程被称为回填。与 recovery 相比，回填（backfill）是在零数据的情况下做全量拷贝，而恢复（recovery）是在已有数据的基础上做增量恢复。
+  * Remapped 重映射：每当 PG 的 acting set 改变后，就会发生从旧  acting set 到新 acting set 的数据迁移。此过程结束前，旧 acting set 中的主 OSD 将继续提供服务。一旦该过程结束，Ceph 将使用新 acting set 中的主 OSD 来提供服务。
+  * Stale 过期的：OSD 每隔 0.5 秒向 MON 报告其状态。如果因为任何原因，主 OSD 报告状态失败了，或者其它OSD已经报告其主 OSD down 了，Ceph MON 将会将它们的 PG 标记为 stale 状态。 
