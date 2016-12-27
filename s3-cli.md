@@ -141,46 +141,73 @@ Bucket 's3://test-bucket_1/' removed
   
   2. 操作 object
 需要在 S3 中存储的文件在对象存储中被称为 object。为了说明上传 object 的过程，首先我们来创建一个用来上传的文件 test.txt (也就是一个object),并写入 samplecontent作为文件的内容:
+```
 # cat test.txt
 samplecontent
+```
 由于 object 必须属于一个bucket，接下来需要创建保存 object 的 bucket:
+```
 # s3cmd mb s3://test-bucket_2
 Bucket 's3://test-bucket_2/' created
+```
 上传 object 的命令格式:
+```
 s3cmd put FILE [FILE...] s3://BUCKET[/PREFIX]
+```
 以上传刚创建的 test.txt 文件到 test_bucket_2 bucket 为例:
+```
 # s3cmd put test.txt s3://test-bucket_2
 WARNING: Module python-magic is not available. Guessing MIME types based on file extensions.
 test.txt -> s3://test-bucket_2/test.txt  [1 of 1]
  14 of 14   100% in    0s    20.59 kB/s
  14 of 14   100% in   90s     0.16 B/s  done
+```
 列出 bucket 中 object 的命令格式:
+```
 # s3cmd ls [s3://BUCKET[/PREFIX]]
+```
 以列出当前 bucket 中的 object:
+```
 # s3cmd ls s3://test-bucket_2
 2015-08-12 04:22        14   s3://test-bucket_2/test.txt
+```
 下载bucket中object的命令格式：
+```
 # s3cmd get s3://BUCKET/OBJECT LOCAL_FILE
+```
 下载当前bucket中的文件test.txt，并本地命名localtest.txt：
+```
 # s3cmd get s3://test-bucket-2/test.txt  localtest.txt
 s3://test-bucket-2/test.txt -> localtest.txt  [1 of 1]
 s3://test-bucket-2/test.txt -> localtest.txt  [1 of 1]
  348 of 348   100% in    0s    10.58 kB/s  done
+```
 删除bucket中object的命令格式：
+```
 # s3cmd del s3://BUCKET/FILENAME
+```
 删除当前bucket中的test.txt对象：
+```
 # s3cmd del s3://test-bucket-2/test.txt
 File s3://test-bucket-2/test.txt delete
+```
 拷贝bucket中object的命令格式：
+```
 # s3cmd cp s3://BUCKET1/OBJECT1 s3://BUCKET2[/OBJECT2]
+```
 拷贝对象，从一个bucket到另一个bucket：
+```
 # s3cmd cp s3://test-bucket-2/test1.txt s3://test-bucket-1/test1.txt
 WARNING: Retrying failed request: /test1.txt ()
 WARNING: Waiting 3 sec...
 File s3://test-bucket-2/test1.txt copied to s3://test-bucket-1/test1.tx
+```
 获取object信息命令格式：
+```
 # s3cmd info s3://BUCKET/OBJECT
+```
 获取当前object的信息：
+```
 # s3cmd info s3://test-bucket-2/test1.txt
 s3://test-bucket-2/test1.txt (object):
    File size: 348
@@ -189,3 +216,6 @@ s3://test-bucket-2/test1.txt (object):
    MD5 sum:   4b49d7dd076b0b71e0eda307388fac57
    SSE:       NONE
    policy: <?xml version="1.0" encoding="UTF-8"?><ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>test-bucket-2</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>test1.txt</Key><LastModified>2015-08-14T02:02:37.000Z</LastModified><ETag>&quot;4b49d7dd076b0b71e0eda307388fac57&quot;</ETag><Size>348</Size><StorageClass>STANDARD</StorageClass><Owner><ID>mikulely</ID><DisplayName>Jiaying Ren</DisplayName></Owner></Contents></ListBucketResult>
+```
+
+其余使用请参见 s3cmd usage: [s3cmd使用手册](http://s3tools.org/usage "s3cmd使用手册")
