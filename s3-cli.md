@@ -38,7 +38,7 @@ s3cmd version 1.5.2
   * access_key
   * secret_key
 
-  1. 配置 s3cmd
+  配置 s3cmd
   在当前用户的家目录下创建 .s3cfg 文件(也是 s3cmd 默认配置文件路径)，并填入以下内容:
 ```
 [default]
