@@ -19,6 +19,7 @@
     * 数据网关
     * 高级特性
 * [Ceph分布式存储](ceph分布式存储.md)
+
   * [架构概览](架构概览.md)
   * [Ceph客户端](ceph客户端.md)
     * [Native Protocol —— Librados](base.md)
@@ -27,14 +28,15 @@
       * 对象存储
       * [文件服务](文件服务.md)
   * [Ceph集群](ceph集群.md)
+
     * [进程角色](daemon角色.md)
       * [MON](mon.md)
       * [OSD](osd.md)
       * [MDS](mds.md)
     * [核心概念](核心概念.md)
-      * [Placement Group](placement-group.md)
 
-    * [Pool](pool.md)
+      * [Placement Group](placement-group.md)
+      * [Pool](pool.md)
 
 
 
