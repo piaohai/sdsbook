@@ -1,6 +1,6 @@
 Ceph 要求 Ceph 客户端和 OSD 守护进程需要知晓整个集群的拓扑结构，它们可以通过 Monitor 获取 cluster map 来达到这一点, Cluster Map 包括：
 
-### Monitor Map 
+### Monitor Map
 
 MON 集群的状态（包括 the cluster fsid， the position， name address and port of each monitor， 创建时间，最后的更新时间等）。例如：
 
@@ -16,9 +16,9 @@ MON 集群的状态（包括 the cluster fsid， the position， name address an
 9.    2: 9.115.251.218: 6789/0 mon.ceph3
 ```
 
-### OSD Map  
+### OSD Map
 
-当前所有 Pool 的状态和所有 OSD 的状态 （包括 the cluster fsid， map 创建和最后修改时间， pool 列表， replica sizes， PG numbers， a list of OSDs and their status \(e.g.， up， in\) 等）。通过运行 ceph osd dump 获取。例如：
+当前所有 Pool 的状态和所有 OSD 的状态 （包括 cluster fsid， map 创建和最后修改时间， pool 列表， replica sizes， PG numbers， a list of OSDs and their status \(e.g.， up， in\) 等）。通过运行 ceph osd dump 获取。例如：
 
 ```
 1.    root@ceph1:~# ceph osd dump
@@ -32,16 +32,12 @@ MON 集群的状态（包括 the cluster fsid， the position， name address an
 9.    ......
 ```
 
-### PG Map  
+### PG Map
 
-包含PG 版本（version）、时间戳、最新的 OSD map epoch， full ratios， and 每个 PG 的详细信息比如 PG ID， Up Set， Acting Set， 状态 \(e.g.， active + clean\)， pool 的空间使用统计。可以使用命令 ceph pg dump 来获取 PG Map。  
-
-### CRUSH Map  
-
-CRUSH （Controlled Replication under Scalable Hashing）Map：包含当前磁盘、服务器、机架等层级结构 （Contains a list of storage devices， the failure domain hierarchy \(e.g.， device， host， rack， row， room， etc.\)， and rules for traversing the hierarchy when storing data）。 要查看该 map 的话，先运行 ceph osd getcrushmap -o {filename} 命令，然后运行 crushtool -d {comp-crushmap-filename} -o {decomp-crushmap-filename} 命令，在vi 或者 cat {decomp-crushmap-filename} 即可。  
+包含PG 版本（version）、时间戳、最新的 OSD map epoch， full ratios， and 每个 PG 的详细信息比如 PG ID， Up Set， Acting Set， 状态 \(e.g.， active + clean\)， pool 的空间使用统计。可以使用命令 ceph pg dump 来获取 PG Map。
 
 ### MDS Map
-  
+
 MDS Map：包含当前所有 MDS 的状态 （包含当前 MDS 图的版本、创建时间、最近修改时间，还包含了存储元数据的存储池、元数据服务器列表、还有哪些元数据服务器是 up 且 in 的）。通过执行 ceph mds dump 获取，例如：
 
 ```
