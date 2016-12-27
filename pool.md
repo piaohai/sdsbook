@@ -4,17 +4,27 @@
 
 Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策略，包括：
 
-
-
 其属性包括：
 
 * * 冗余策略：
     * 拷贝 —— Replicated
     * 纠删码 —— Erasure Coded
-  * 存储池分级：多个存储池可以组成分级存储，通过数据热度统计，自动将热度较高的数据存储于快速存储池中，而将热度较低的数据存储于慢速存储池中，分级存储配置项包括：
-    * hit\_set\_type
-    * hit\__set_\_period
-    * hit\_set\_type
+  * 存储池分级缓存：多个存储池可以组成分级缓存存储，Ceph融合该特性融合了分级存储以及缓存的特性，将快速存储池作为缓存使用，通过数据热度统计，自动将热度较高的数据存储于快速存储池中，而将热度较低的数据存储于慢速存储池中，分级存储提供：
+    * 缓存策略：
+      * WriteBack —— 同时缓存读写数据，并定期将缓存池脏数据写回慢速存储池中
+      * ReadOnly —— 写入数据直接写回慢速存储池中，仅将读数据缓存入快速存储池中
+      * ReadForward，ReadProxy —— 只缓存写入数据，写入数据采用写回策略，而读数据直接访问慢速存储池。ReadForward 和 ReadProxy 的区别在于，ReadForward由客户端向慢速存储池发起请求并获取数据；而ReadProxy由服务端向慢速存储池发起请求获取数据后，将获取的数据转发给客户端。
+    * 缓存调优：
+      * 客户可以根据具体业务场景，设置“bloom“，“explicithash”，“explicitobject”，加快热度计算速度或者加强热度计算精度 —— bloom模式具有较快的计算速度，explicit\_object具有较好的计算精度，而explicit\_hash介于两者之间。
+      * 客户可以根据具体场景，通过设置min\_read\_recency\_for\_promote与min\_write\_recency\_for\_promote，提升缓存命中效率。这两个参数表示读写访问在缓存池至少未命中几次后，才会被缓存入快速存储池，在对象未被缓存入快速存储池之前，读写请求将直接通过Proxy write/read 从慢速存储池中获取数据，这可以极大程度上避免全局数据扫描从而污染缓存池数据。
+    * 提供对象热度策略设置参数，进行热度统计与缓存策略的优化
+    * 根据不同的业务场景，提供不同的缓存策略，如
+  * * 
+  * * hit\_set\_type：hitset的类型，通常使用bloom
+    * hit\__set_\_period：每个hitset
+
+
+
     * hit\_set\_count
     * hit\_set\_fpp
     * use\_gmt\_hitset
@@ -29,7 +39,6 @@ Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策
     * min\_write\_recency\_for\_promote
     * hit\_set\_grade\_decay\_rate
     * hit\_set\_search\_last\_n
-
 * * 副本数目 —— size：拷贝数描述了一个存储池冗余策略，表示Pool中采用几份拷贝对数据进行存储（注意：这里主副本也算作一份拷贝）
   * 副本最小数目—— min\__size：当至少有min\_size数量的拷贝时，数据才可以被读写_
 
@@ -59,8 +68,8 @@ Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策
   * PG 数目
 
   * 
-
 * 分级存储池
+
 * 对象副本数目
 
 CRUSH 规则集合
