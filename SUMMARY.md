@@ -32,5 +32,5 @@
             * [OSD](osd.md)
             * [MDS](mds.md)
         * [核心概念](核心概念.md)
-            * Pool
+            * [Pool](pool.md)
 
