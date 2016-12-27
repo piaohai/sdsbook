@@ -2,14 +2,15 @@
 
 当使用多个监视器（Monitor）的时候，Monitor 通过 Paxos 协议和 Lease 协议保障 Monitor 之间出现单点故障后，能够继续对外提供服务。
 
-* Paxos协议  
-  根据 Paxos 协议，为了同步，监视器可能承担两种角色：
+* Paxos协议: 在 Paxos 协议中，监视器可能承担两种角色 Leader 与 Peon：
 
-  ** Leader: Leader 通过 Paxos 协议选举生产，唯一能够处理更新请求的角色，当且仅当集群中超过半数 Monitor 能够互相连通并且正常工作时，才能够选出 Leader，并形成更新请求的决议团队（quorum）。Leader 角色的 Monitor 上存在最新 Paxos 版本的集群视图（关于Paxos协议，请参见：**[**Paxos协议**](https://en.wikipedia.org/wiki/Paxos_(computer_science)** "Paxos协议"\)）。  
-  ** Peon  
-    当生产集群配置使用多个监视器时，由于各种原因（如：监视器之间网络不通，监视进程异常等），集群里的某个监视器的集群视图可能会因落后于其它监视器而重新同步到集群当前状态。  
-  ** Provider: Provider 是有最新集群运行图的监视器，但只帮助Leader分担查询请求处理压力，更新请求需要转发给 Leader 处理，由 Leader 发起更新数据的决议，Provider 会参与表决，当半数以上的 Provider 通过表决后，Leader 确认数据更新。  
-  ** Requester: Requester 落后于 leader，必须同步以获取关于集群的最新 Paxox 版本的集群视图后，才能够加入决议团队（quorum）。
+  * Leader: Leader 通过 Paxos 协议选举生产，唯一能够处理更新请求的角色，当且仅当集群中超过半数 Monitor 能够互相连通并且正常工作时，才能够选出 Leader，并形成更新请求的决议团队（quorum）。Leader 角色的 Monitor 上存在最新 Paxos 版本的集群视图（关于Paxos协议，请参见：**[**Paxos协议**](https://en.wikipedia.org/wiki/Paxos_(computer_science)** "Paxos协议"\)）。  
+  
+  * Peon: 除 Leader Monitor 以外的 Monitor 都是 Peon。当生产集群配置使用多个监视器时，由于各种原因（如：监视器之间网络不通，监视进程异常等），集群里的某个监视器的集群视图可能会因落后于其它监视器而重新同步到集群当前状态，根据 Peon 上的数据是否为最新版本，Peon Monitor 会处于一下两种角色:
+  
+    * Provider: Provider 是有最新集群运行图的监视器，但只帮助Leader分担查询请求处理压力，更新请求需要转发给 Leader 处理，由 Leader 发起更新数据的决议，Provider 会参与表决，当半数以上的 Provider 通过表决后，Leader 确认数据更新。  
+  
+    * Requester: Requester 落后于 leader，必须同步以获取关于集群的最新 Paxox 版本的集群视图后，才能够加入决议团队（quorum）。
 
 * Lease协议  
   Monitor 之间可能由于各种原因产生异常，造成彼此无法通信。在这种单点故障发生时，集群需要有机制将少数不正常的 Monitor 排斥出去，从而能够让多数正常的 Monitor 继续对外提供服务，保证 Monitor 的高可用，这就是租约机制。
