@@ -32,9 +32,10 @@ s3cmd version 1.5.2
 如果可以显式 s3cmd 的版本，则说明安装成功。
 
 ## 创建 s3 账号
+
 每个用户的唯一标示有两个 key:
-access_key
-secret_key
+  access_key
+  secret_key
 
   1. 配置 s3cmd
   在当前用户的家目录下创建 .s3cfg 文件(也是 s3cmd 默认配置文件路径)，并填入以下内容:
