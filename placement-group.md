@@ -44,7 +44,7 @@ PG-Object-OSD的关系如下图所示：
 
 |  |  |
 | :--- | :--- |
-|  |  |
+| a a | b b |
 
 状态    说明  
 Creating    Ceph 仍在创建归置组  
