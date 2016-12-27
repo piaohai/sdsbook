@@ -2,7 +2,7 @@
 
 Cephx用共享密钥来认证，即客户端和监视器集群各自都有客户端密钥的副本。这样的认证协议使参与双方不用展现密钥就能相互认证，就是说集群确信用户拥有密钥、而且用户相信集群有密钥的副本。
 
-Ceph一个主要伸缩功能就是避免了对象存储的中央接口，这就要求Ceph客户端能直接和OSD交互。Ceph通过 Cephx 认证系统保护数据，它也认证运行Ceph客户端的用户，Cephx协议运行机制类似Kerberos（关于Kerberos，请参见[https://web.mit.edu/kerberos/](https://web.mit.edu/kerberos/ "Kerberos网络认证协议")）。
+Ceph一个主要伸缩功能就是避免了对象存储的中央接口，这就要求Ceph客户端能直接和OSD交互。Ceph通过 Cephx 认证系统保护数据，它也认证运行Ceph客户端的用户，Cephx协议运行机制类似Kerberos（关于Kerberos，请参见[Kerberos网络认证协议](https://web.mit.edu/kerberos/ "Kerberos网络认证协议")）。
 
 用户/参与者通过调用Ceph客户端来联系监视器，不像Kerberos，每个监视器都能认证用户、发布密钥，所以使用 Cephx 时不会有单点故障或瓶颈。监视器返回一个类似Kerberos票据的认证数据结构，它包含一个可用于获取 Ceph 服务的会话密钥，会话密钥是用户的永久私钥自加密过的，只有此用户能从Ceph监视器请求服务。客户端用会话密钥向监视器请求需要的服务，然后监视器给客户端一个凭证用以向实际持有数据的 OSD 认证。 Ceph 的监视器和 OSD 共享相同的密钥，所以集群内任何 OSD 或元数据服务器都认可客户端从监视器获取的凭证，像 Kerberos 一样 Cephx 凭证也会过期，以使攻击者不能用暗中得到的过期凭证或会话密钥。只要用户的私钥过期前没有泄露 ，这种认证形式就可防止中间线路攻击者以别人的 ID 发送垃圾消息、或修改用户的正常消息。
 
@@ -20,5 +20,5 @@ Cephx协议会认证客户端机器和Ceph服务器间正在进行的通讯，�
 
 认证提供的保护位于Ceph客户端和服务器间，没有扩展到 Ceph 客户端之外。如果用户从远程主机访问 Ceph 客户端， Ceph 认证就不管用了，它不会影响到用户主机和客户端主机间的通讯。
 
-关于配置细节，请参考 Ceph 用户管理：[http://docs.ceph.org.cn/rados/operations/user-management/](http://docs.ceph.org.cn/rados/operations/user-management/ "Ceph 用户管理")
+关于配置细节，请参考 Ceph 用户管理：[Ceph 用户管理](http://docs.ceph.org.cn/rados/operations/user-management/ "Ceph 用户管理")
 
