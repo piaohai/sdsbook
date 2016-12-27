@@ -33,4 +33,5 @@
             * [MDS](mds.md)
         * [核心概念](核心概念.md)
             * [Pool](pool.md)
+            * [Placement Group](placement-group.md)
 

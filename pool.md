@@ -2,6 +2,8 @@
 
 集群的资源可以被逻辑上划分成逻辑资源池 – Pools，并使用这些逻辑资源池提供不同的外部服务（如：块存储服务，RGW对象存储服务，CephFS文件系统服务）。一个 Pool 是 Ceph 中一些对象的逻辑分组，它并不表示一个连续的分区，而只是一个逻辑概念，类似于将二进制数据打了tag一样然后根据tag归类一样，它类似于 LVM 中的 Volume Group，类似于一个命名空间。RBD Image 类似于 LVM 中的 Logical Volume，RBD Image 必须且只能在一个 Pool 中，Pool 由一定数量的PG组成。
 
+## 作用
+
 Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策略，包括：
 
 其属性包括：
@@ -39,4 +41,6 @@ Pool作为Ceph集群中的逻辑存储池，可以对其定义不同的存储策
     * noscrub：该值设置为1，禁止该Pool中的pg进行scrub
 
     * nodeep-scrub：该值设置为1，禁止该Pool中的pg进行deep－scrub
+
+
 
