@@ -80,12 +80,14 @@ verbosity = WARNING
 signature_v2 = True 
 ```
 以上默认有5个字段需要确认，其中和认证相关的2个字段:
-access_key
-secret_key
+
+  * access_key
+  * secret_key
 需要和创建 s3 账号时的一致，如果提供的 key 中包含了反斜线，它们是JSON的转义字符，只删除反斜线就可以了。剩下3个字段和访问 S3 服务域名有关:
-cloudfront_host
-host_base
-host_bucket
+
+  * cloudfront_host
+  * host_base
+  * host_bucket
 
 ## 使用对象存储
 
