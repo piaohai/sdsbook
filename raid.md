@@ -28,14 +28,14 @@ RAID技术——Redundant array of independent disks，是一种早期的存储�
 
 ![](/assets/raid_7.png)
 
-的RAID技术可以组合使用，通常的组合有：
+由于上面介绍的 RAID 技术，对磁盘数量要求是有限制的，比如 RAID5，只能支持4块磁盘为一组，RAID6 只能支持5块磁盘为一组。那么如果一个服务上面有20块磁盘，这时候怎么办呢？在这种情况下，RAID 组合使用的用法产生了，通常的组合方式有：
 
-* RAID01
-* RAID03
-* RAID10
-* RAID50
-* RAID60
-* RAID100
+* RAID01：RAID0 ＋ RAID1
+* RAID03：RAID0 ＋ RAID3
+* RAID10：RAID1 ＋ RAID0
+* RAID50：RAID5 ＋ RAID0
+* RAID60：RAID6 ＋ RAID0
+* RAID100：RAID1 + RAID0 + RAID0
 
 
 
