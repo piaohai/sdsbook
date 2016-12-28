@@ -46,16 +46,14 @@ swfit用户与RGW子用户对应，需要先创建普通用户
 
 删除容器/对象
 
-| `swift -V 1.0 -A http://server-201:7480/auth -U johndoe:swift -K ppJm1cQo\/XJ9WHQs6vSGuPefohwoQeKkp04ghYZb delete test [myfile]` |
+| `swift -V 1.0 -A http://server-201:7480/auth -U johndoe:swift -K ppJm1cQo\/XJ9WHQs6vSGuPefohwoQeKkp04ghYZb delete test myfile` |
 | :--- |
 
 
 查询容器/对象信息
 
-| `swift -V 1.0 -A http://server-201:7480/auth -U johndoe:swift -K ppJm1cQo\/XJ9WHQs6vSGuPefohwoQeKkp04ghYZb stat [test] [myfile]` |
+| `swift -V 1.0 -A http://server-201:7480/auth -U johndoe:swift -K ppJm1cQo\/XJ9WHQs6vSGuPefohwoQeKkp04ghYZb stat [test] myfile` |
 | :--- |
-
-
 
 
 关于SwiftClient的使用，请参见：[Swiftclient Reference](http://docs.openstack.org/cli-reference/swift.html)
