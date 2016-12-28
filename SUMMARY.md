@@ -27,7 +27,7 @@
                 * [Kernel RBD](kernel-rbd.md)
                 * [Kernel NBD](kernel-nbd.md)
                 * [Qemu RBD](qemu-rbd.md)
-                * Features
+                * [Features](features.md)
             * [文件服务](文件服务.md)
             * [对象存储](对象存储.md)
                 * [对象存储RGW网关](对象存储rgw网关.md)
