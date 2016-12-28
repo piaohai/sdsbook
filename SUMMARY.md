@@ -37,4 +37,5 @@
             * [CRUSH](crush.md)
             * [Cluster Map](cluster-map.md)
             * [IO Mapping](io-mapping.md)
+            * [Authentication](authentication.md)
 
