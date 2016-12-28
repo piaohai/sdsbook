@@ -1,4 +1,4 @@
-Swift 提供了基于绝大多数语言的 SDK：
+Swift S3 对象存储基于原生 Swift S3 Restful API，封装了上层基于各种语言的SDK，通过SDK调用访问Swift，大大降低了开发者进行二次开发的难度，Swift S3 提供一下语言的SDK：
 
 * C：[C SDK](https://wiki.openstack.org/wiki/SDKs#C)
 * C++：[C++ SDK](https://wiki.openstack.org/wiki/SDKs#C.2B.2B)
