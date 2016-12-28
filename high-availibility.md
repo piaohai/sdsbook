@@ -4,12 +4,12 @@
 
 * Paxos协议: 在 Paxos 协议中，监视器可能承担两种角色 Leader 与 Peon：
 
-  * Leader: Leader 通过 Paxos 协议选举生产，唯一能够处理更新请求的角色，当且仅当集群中超过半数 Monitor 能够互相连通并且正常工作时，才能够选出 Leader，并形成更新请求的决议团队（quorum）。Leader 角色的 Monitor 上存在最新 Paxos 版本的集群视图（关于Paxos协议，请参见：**[**Paxos协议**](https://en.wikipedia.org/wiki/Paxos_(computer_science)** "Paxos协议"\)）。  
-  
+  * Leader: Leader 通过 Paxos 协议选举生产，唯一能够处理更新请求的角色，当且仅当集群中超过半数 Monitor 能够互相连通并且正常工作时，才能够选出 Leader，并形成更新请求的决议团队（quorum）。Leader 角色的 Monitor 上存在最新 Paxos 版本的集群视图（关于Paxos协议，请参见：**\[**Paxos协议**\]\(**[https://en.wikipedia.org/wiki/Paxos\_\(computer\_science](https://en.wikipedia.org/wiki/Paxos_(computer_science)**\)** "Paxos协议"\)）。
+
   * Peon: 除 Leader Monitor 以外的 Monitor 都是 Peon。当生产集群配置使用多个监视器时，由于各种原因（如：监视器之间网络不通，监视进程异常等），集群里的某个监视器的集群视图可能会因落后于其它监视器而重新同步到集群当前状态，根据 Peon 上的数据是否为最新版本，Peon Monitor 会处于一下两种角色:
-  
-    * Provider: Provider 是有最新集群运行图的监视器，但只帮助Leader分担查询请求处理压力，更新请求需要转发给 Leader 处理，由 Leader 发起更新数据的决议，Provider 会参与表决，当半数以上的 Provider 通过表决后，Leader 确认数据更新。  
-  
+
+    * Provider: Provider 是有最新集群运行图的监视器，但只帮助Leader分担查询请求处理压力，更新请求需要转发给 Leader 处理，由 Leader 发起更新数据的决议，Provider 会参与表决，当半数以上的 Provider 通过表决后，Leader 确认数据更新。
+
     * Requester: Requester 落后于 leader，必须同步以获取关于集群的最新 Paxox 版本的集群视图后，才能够加入决议团队（quorum）。
 
 * Lease协议  
@@ -49,6 +49,10 @@ OSD 的高可用是通过多方面共同保障的：
   在一个 OSD 被 Monitor 标记为死亡之前，至少有两个以上其他故障域中的 OSD 向 Monitor 报告该 OSD 死亡，该规则可以保证 Monitor 将多数 OSD 标记为死亡这种不合理的现象不会发生（当 OSD 与 OSD 之间通信不畅后，这些 OSD 会向 Monitor 互报对方 OSD 死亡，如果加以限制，Monitor 可能将多数 OSD 标记为死亡，而我们希望 Monitor 永远将少数的 OSD 标记为死亡）。用户可以通过配置参数 mon\_osd\_min\_down\_reporters 与 mon\_osd\_reporter\_subtree\_level 来改变默认的行为。
 
   ![](/assets/high_availibility_4.png)
+
+## MDS高可用
+
+持续更新中，尽情期待。
 
 
 
