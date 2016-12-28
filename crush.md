@@ -2,9 +2,63 @@ CRUSH作为Ceph集群最为核心的数据分布算法，需要解决大规模�
 CRUSH算法正是实现了一个伪随机的数据分发功能，它被设计用于基于对象的分布式存储系统，这样的系统不依赖于某个中央目录就能够实现数据对象到存储设备的映射。另外大型存储系统的发展本质就是动态的，所以CRUSH被设计成便于增加和移除存储设备，同时能将非必要的数据移动降至最低。该算法还包括了各种各样的数据复制和可靠性机制，并按照用户定义的策略来分发数据，而且这样的策略还能强制执行跨越故障域的备份分离。
 
 CRUSH Map  
-CRUSH Map就是用户为集群定义的一颗具有层次解构的树，如下图：
+CRUSH Map是用户为集群定义的一颗具有层次结构的树，如下图：
 
-![](/assets/crush_1.png)
+![](/assets/crush_3.png)
+
+层次结构中包含只包含两种角色：
+
+* Bucket（桶）：表示除 OSD 之外的角色
+* Device（设备）：只有 OSD 才能是 Device 角色
+
+在 CRUSH Map 中，叶子节点必须为 Device （即 OSD），非叶子节点必须为 Bucket。通常情况下，数据中心实际的物理拓扑来决定CRUSH Map，如上图示例，根节点下包含一个数据中心，该数据中心下有一个机房，该机房中有一个机架，该机架下有两台服务器，每台服务器下面有两个OSD。CRUSH Map 树结构能很好的来描述各个层级之间的包含关系，而 CRUSH 算法可以根据这个层级树以及定义好的 CRUSH RULE 来决定最终如何将 PG 落到 OSD 上。
+
+当然 CRUSH MAP 某些时候还可以根据实际需求定义或划分为逻辑拓扑，比如：我们希望区分不同性能的存储设备
+
+![](/assets/crush_2.png)
+
+上图的拓扑可以定义如下CRUSH Map
+
+```
+$ sudo ceph osd tree
+# id  weight  type name up/down reweight
+-21 12  root ssd
+-22 2       host ceph-osd2-ssd
+6 1             osd.6 up  1
+9 1             osd.9 up  1
+-23 2       host ceph-osd1-ssd
+8 1             osd.8 up  1
+11  1           osd.11  up  1
+-24 2       host ceph-osd0-ssd
+7 1             osd.7 up  1
+10  1           osd.10  up  1
+-1  12  root sata
+-2  2       host ceph-osd2-sata
+0 1             osd.0 up  1
+3 1             osd.3 up  1
+-3  2       host ceph-osd1-sata
+2 1             osd.2 up  1
+5 1             osd.5 up  1
+-4  2       host ceph-osd0-sata
+1 1             osd.1 up  1
+4 1             osd.4 up  1
+```
+
+总之，CRUSH Map 是一个层级视图，描述了各个 OSD 在层级中所处的角色与位置。
+
+
+
+CRUSH Algorithm
+
+CRUSH 算法描述了使用什么算法将 PG 映射至 OSD 的过程：
+
+![](/assets/crush_4.png)
+
+
+
+CRUSH RULES
+
+CRUSH RULES 描述了
 
 集群映射由设备和桶（buckets）组成层级树，设备和桶都有数值的描述和权重值。例如：
 
