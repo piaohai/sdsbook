@@ -9,7 +9,7 @@
     * [存储网络与协议](网络与协议.md)
         * [块存储](块存储.md)
             * [FC](fc网络.md)
-            * FCoE
+            * [FCoE](fcoe.md)
             * FCIP
             * ISCSI
     * [数据冗余](数据冗余.md)
@@ -25,9 +25,10 @@
         * [Up Service](up-service.md)
             * [块存储](块存储.md)
                 * [Kernel RBD](kernel-rbd.md)
-                * [Kernel NBD](qemu-rbd.md)
+                * [Kernel NBD](kernel-nbd.md)
                 * [Qemu RBD](qemu-rbd.md)
                 * Features
+            * [文件服务](文件服务.md)
             * [对象存储](对象存储.md)
                 * [对象存储RGW网关](对象存储rgw网关.md)
                 * [S3 协议访问](aws-s3-访问方式.md)
@@ -39,7 +40,6 @@
                     * [Swift SDK](swift-sdk.md)
                     * [Swift CLI](swift-cli.md)
                 * [NFS 协议访问](nfs-协议访问.md)
-            * [文件服务](文件服务.md)
     * [Ceph集群](ceph集群.md)
         * [进程角色](daemon角色.md)
             * [MON](mon.md)
