@@ -24,6 +24,10 @@
         * [Native Protocol —— Librados](base.md)
         * [Up Service](up-service.md)
             * [块存储](块存储.md)
+                * [Kernel RBD](kernel-rbd.md)
+                * [Kernel NBD](qemu-rbd.md)
+                * [Qemu RBD](qemu-rbd.md)
+                * Features
             * [对象存储](对象存储.md)
                 * [对象存储RGW网关](对象存储rgw网关.md)
                 * [S3 协议访问](aws-s3-访问方式.md)
