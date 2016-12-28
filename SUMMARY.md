@@ -26,9 +26,10 @@
             * [块存储](块存储.md)
             * [对象存储](对象存储.md)
                 * [对象存储RGW网关](对象存储rgw网关.md)
-                * [S3 Restful API](s3-restful-api.md)
-                * AWS S3 SDK
                 * [AWS S3 CLI](aws-s3-cli.md)
+                * AWS S3 SDK
+                * [S3 Restful API](s3-restful-api.md)
+                * [AWS S3 访问方式](aws-s3-访问方式.md)
             * [文件服务](文件服务.md)
     * [Ceph集群](ceph集群.md)
         * [进程角色](daemon角色.md)
