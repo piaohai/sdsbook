@@ -29,7 +29,9 @@
                 * [AWS S3 CLI](aws-s3-cli.md)
                 * AWS S3 SDK
                 * [S3 Restful API](s3-restful-api.md)
-                * [AWS S3 访问方式](aws-s3-访问方式.md)
+                * [S3 协议访问](aws-s3-访问方式.md)
+                * [Swift 协议访问](swift-协议访问.md)
+                * [NFS 协议访问](nfs-协议访问.md)
             * [文件服务](文件服务.md)
     * [Ceph集群](ceph集群.md)
         * [进程角色](daemon角色.md)
