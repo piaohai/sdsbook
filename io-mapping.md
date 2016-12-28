@@ -9,6 +9,8 @@ Ceph 架构中客户端的读写操作均是以OSD上的RADOS对象存储中的�
    3. ceph 对该 hash 值取 PG 总数的模，得到 PG 编号 （比如 58）（第2和第3步基本保证了一个 pool 中的所有 PG 将会被均匀地使用）;  
    4. ceph 将  pool ID 和 PG ID 组合在一起（比如 4.58）得到 PG 的完整ID； 也就是：PG-id = pool-id.\(hash\(objet-id\) % PG-number\)
 
+   ![](/assets/io_mapping_1.png)
+
 3. 客户端通过 CRUSH 算法计算出（或者说查找出） object 应该会被保存到 PG 中哪个 OSD 上。（注意：这里是说”应该“，而不是”将会“，这是因为 PG 和 OSD 之间的关系是已经确定了的，那客户端需要做的就是需要知道它所选中的这个 PG 到底将会在哪些 OSD 上创建对象。）。这步骤也叫做 CRUSH 查找。
 
    1. Ceph client 从 MON 获取最新的 cluster map；  
@@ -16,6 +18,8 @@ Ceph 架构中客户端的读写操作均是以OSD上的RADOS对象存储中的�
    3. Ceph client 再根据 CRUSH 算法计算出 PG 中目标主和次 OSD 的 ID；
 
    也就是：OSD-ids = CURSH\(PG-id, cluster-map, crush-rules\)
+
+   ![](/assets/io_mapping_2.png)
 
 4. 客户端写入数据
 
@@ -31,11 +35,14 @@ Ceph 架构中客户端的读写操作均是以OSD上的RADOS对象存储中的�
    3. librbd 调用 librados 将对象写入 Ceph 集群； 
    4. librados 向主 OSD 写入分好块的二进制数据 \(先建立TCP/IP连接，然后发送消息给 OSD，OSD 接收后写入其磁盘\)；
    5. 主 OSD 负责同时向一个或者多个次 OSD 写入副本。注意这里是写到日志（Journal）就返回，因此，使用SSD作为Journal的话，可以提高响应速度，做到服务器端对客户端的快速同步返回写结果（commit）；
-   6. 当主次OSD都写入完成后，主 OSD 向客户端返回写入成功； 
+   6. 当主次OSD都写入完成后，主 OSD 向客户端返回写入成功；
 
+   ![](/assets/io_mapping_3.png) 
    也就是说，文件系统负责文件处理，librdb 负责块处理，librados 负责对象处理，OSD 负责将数据写入在Journal和磁盘中。
 
-5. 下图为一个文件存放为例，说明了完整的计算过程  
+5. 下图为一个文件存放为例，说明了完整的计算过程
+
+   ![](/assets/io_mapping_4.png)  
    图为一个文件存放为例，说明了完整的计算过程：
 
    1. 一个 RBD image（比如虚机的一个镜像文件）会分成若干个 data objects 保存在 Ceph 对象存储中； 
