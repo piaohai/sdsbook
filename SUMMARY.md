@@ -31,6 +31,9 @@
                     * [S3 SDK](s3-sdk.md)
                     * [S3 CLI](s3-cli.md)
                 * [Swift 协议访问](swift-协议访问.md)
+                    * Swift Restful API
+                    * Swift SDK
+                    * [Swift CLI](swift-cli.md)
                 * [NFS 协议访问](nfs-协议访问.md)
             * [文件服务](文件服务.md)
     * [Ceph集群](ceph集群.md)
