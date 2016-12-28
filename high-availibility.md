@@ -19,20 +19,20 @@ OSD 的高可用是通过多方面共同保障的：
   * OSD 守护进程会向监视器报告某些事件，如某次操作失败、归置组状态变更、 up\_thru 变更、其他 OSD 是否死亡等，可以设置 \[osd\] 下的 osd mon report interval min 来更改最小报告间隔。
 
     ```
-     ![](/assets/high_availibilty_2.png)
+    ![](/assets/high_availibilty_2.png)
     ```
 
   * OSD 守护进程每隔 120 秒会向监视器报告其状态，不论是否有值得报告的事件。在 \[osd\] 段下设置 osd mon report interval max 可更改OSD报告间隔。
 
     ```
-      ![](/assets/high_availibility_3.png)
+    ![](/assets/high_availibility_3.png)
     ```
 
-* OSD 标记死亡    
+* OSD 标记死亡  
   在一个 OSD 被 Monitor 标记为死亡之前，至少有两个以上其他故障域中的 OSD 向 Monitor 报告该 OSD 死亡，该规则可以保证 Monitor 将多数 OSD 标记为死亡这种不合理的现象不会发生（当 OSD 与 OSD 之间通信不畅后，这些 OSD 会向 Monitor 互报对方 OSD 死亡，如果加以限制，Monitor 可能将多数 OSD 标记为死亡，而我们希望 Monitor 永远将少数的 OSD 标记为死亡）。用户可以通过配置参数 mon\_osd\_min\_down\_reporters 与 mon\_osd\_reporter\_subtree\_level 来改变默认的行为。
 
   ```
-    ![](/assets/high_availibility_4.png)
+  ![](/assets/high_availibility_4.png)
   ```
 
 
