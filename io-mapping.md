@@ -37,7 +37,7 @@ Ceph 架构中客户端的读写操作均是以OSD上的RADOS对象存储中的�
    5. 主 OSD 负责同时向一个或者多个次 OSD 写入副本。注意这里是写到日志（Journal）就返回，因此，使用SSD作为Journal的话，可以提高响应速度，做到服务器端对客户端的快速同步返回写结果（commit）；
    6. 当主次OSD都写入完成后，主 OSD 向客户端返回写入成功；
 
-   ![](/assets/io_mapping_3.png) 
+   ![](/assets/io_mapping_3.png)   
    也就是说，文件系统负责文件处理，librdb 负责块处理，librados 负责对象处理，OSD 负责将数据写入在Journal和磁盘中。
 
 5. 下图为一个文件存放为例，说明了完整的计算过程

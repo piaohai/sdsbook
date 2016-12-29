@@ -17,6 +17,7 @@ RAID技术——Redundant array of independent disks，是一种早期的存储�
 * RAID4
 
 * RAID5
+
 * RAID6
 
 上诉的RAID技术可以组合使用，通常的组合有：
