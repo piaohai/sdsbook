@@ -14,7 +14,7 @@ RAID技术——Redundant array of independent disks，是一种早期的存储�
 
 * RAID3：现在已经被废弃了，RAID3基于RAID2的改善是，校验计算从bit改进到了byte，基于byte计算校验，而这仍然不适合磁盘
 
-       ![](/assets/raid_4.png)
+![](/assets/raid_4.png)
 
 * RAID4：现在已经被废弃了，RAID4基于RAID3的改善是，检验计算从byte改进到了block，基于block级别进行计算校验，这对于磁盘随机读写来说，已经大大提升了磁盘的性能。
 
