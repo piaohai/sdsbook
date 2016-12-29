@@ -8,7 +8,7 @@ RAID技术——Redundant array of independent disks，是一种早期的存储�
 
   ![](/assets/raid_2_1.png)
 
-* RAID2：
+* RAID2：现在已经
 
   ![](/assets/raid_3.png)
 
