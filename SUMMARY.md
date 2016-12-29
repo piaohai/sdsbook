@@ -10,13 +10,13 @@
         * [块存储](块存储.md)
             * [FC](fc网络.md)
             * [FCoE](fcoe.md)
-            * FCIP
+            * [FCIP](fcip.md)
             * ISCSI
     * [数据冗余](数据冗余.md)
         * [RAID技术](raid.md)
         * [拷贝技术——Replication](replication.md)
         * [纠删码技术——Erasure Code](纠删码技术——erasure-code.md)
-    * 数据网关
+    * [数据网关](数据网关.md)
     * 高级特性
 * [Ceph分布式存储](ceph分布式存储.md)
     * [架构概览](架构概览.md)
