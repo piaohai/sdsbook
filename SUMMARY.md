@@ -16,8 +16,8 @@
         * [RAID技术](raid.md)
         * [拷贝技术——Replication](replication.md)
         * [纠删码技术——Erasure Code](纠删码技术——erasure-code.md)
-        * 数据网关
-        * 高级特性
+    * 数据网关
+    * 高级特性
 * [Ceph分布式存储](ceph分布式存储.md)
     * [架构概览](架构概览.md)
     * [Ceph客户端](ceph客户端.md)
